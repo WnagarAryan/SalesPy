@@ -9,7 +9,8 @@ warnings.filterwarnings("ignore")
 
 st.set_page_config(page_title="SalesPy", page_icon="📊", layout="wide")
 
-# ── Data ─────────────────────────────────────────────────────
+# Data
+
 @st.cache_data
 def load_data():
     np.random.seed(42)
