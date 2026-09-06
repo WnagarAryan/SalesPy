@@ -42,7 +42,8 @@ COLORS = ["#4361EE","#F72585","#7209B7","#4CC9F0","#06D6A0"]
 BG     = "#0f172a"
 CARD   = "#1e293b"
 
-# ── Sidebar ──────────────────────────────────────────────────
+# Sidebar
+
 st.sidebar.title("📊 SalesPy Filters")
 sel_cat = st.sidebar.multiselect("Category", df["Category"].unique().tolist(),
                                   default=df["Category"].unique().tolist())
