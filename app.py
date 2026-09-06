@@ -61,12 +61,14 @@ st.sidebar.markdown(f"**Rows:** {len(fdf)}")
 st.sidebar.download_button("⬇️ Download CSV",
     fdf.to_csv(index=False).encode(), "filtered_sales.csv", "text/csv")
 
-# ── Header ───────────────────────────────────────────────────
+# Header
+
 st.title("📊 SalesPy — Retail Sales Dashboard")
 st.caption("Retail Sales Analysis · Python + Streamlit + Plotly")
 st.markdown("---")
 
-# ── KPIs ─────────────────────────────────────────────────────
+# KPIs
+
 k1, k2, k3, k4 = st.columns(4)
 k1.metric("💰 Total Revenue",    f"₹{fdf['Revenue'].sum():,.0f}")
 k2.metric("📦 Units Sold",        f"{fdf['Units'].sum():,}")
@@ -76,7 +78,8 @@ k4.metric("🏆 Top Category",
 
 st.markdown("---")
 
-# ── Charts ───────────────────────────────────────────────────
+# Charts
+
 def dark(fig):
     fig.update_layout(
         paper_bgcolor=BG, plot_bgcolor=CARD,
@@ -87,6 +90,7 @@ def dark(fig):
 c1, c2 = st.columns(2)
 
 # 1 Monthly trend
+
 with c1:
     st.subheader("📈 Monthly Revenue Trend")
     monthly = fdf.groupby(["MonthNum","Month"])["Revenue"].sum().reset_index().sort_values("MonthNum")
@@ -96,6 +100,7 @@ with c1:
     st.plotly_chart(dark(fig), use_container_width=True)
 
 # 2 Category bar
+
 with c2:
     st.subheader("🏷️ Revenue by Category")
     cat_rev = fdf.groupby("Category")["Revenue"].sum().reset_index().sort_values("Revenue")
@@ -107,6 +112,7 @@ with c2:
 c3, c4 = st.columns(2)
 
 # 3 Region pie
+
 with c3:
     st.subheader("🌍 Revenue by Region")
     reg_rev = fdf.groupby("Region")["Revenue"].sum().reset_index()
@@ -116,6 +122,7 @@ with c3:
     st.plotly_chart(dark(fig), use_container_width=True)
 
 # 4 Units bar
+
 with c4:
     st.subheader("📦 Units Sold by Category")
     cat_units = fdf.groupby("Category")["Units"].sum().reset_index()
@@ -125,13 +132,15 @@ with c4:
     st.plotly_chart(dark(fig), use_container_width=True)
 
 # 5 Box plot full width
+
 st.subheader("📉 Revenue Distribution by Category")
 fig = px.box(fdf, x="Category", y="Revenue",
              color="Category", color_discrete_sequence=COLORS)
 fig.update_layout(showlegend=False)
 st.plotly_chart(dark(fig), use_container_width=True)
 
-# ── Table ────────────────────────────────────────────────────
+# Table
+
 st.markdown("---")
 st.subheader("🗃️ Data Preview")
 st.dataframe(
